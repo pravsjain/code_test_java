@@ -1,92 +1,65 @@
-# IntlSOS_Code_Test_Java
-
-
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin http://172.16.0.72/intlsos_java/intlsos_code_test_java.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](http://172.16.0.72/intlsos_java/intlsos_code_test_java/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
+## Project Name
+doctor-patient-app
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Project having 2 controller and every controller have 4 APIs which are as follows:
+Patients APIs
+1. Fetch Patient data by id:  	Method: GET  		URL: /patient/{ID}
+2. Save Patient details:  		Method: POST  		URL: /patient
+3. Update Patient details:  	Method: PUT  		URL: /patient
+4. Delete Patient details:  	Method: DELETE  	URL: /patient/{ID} 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Doctors APIs
+1. Fetch Doctor data by id:  	Method: GET  		URL: /doctor/{ID}
+2. Save Doctor details:  		Method: POST  		URL: /doctor
+3. Update Doctor details:  		Method: PUT  		URL: /doctor
+4. Delete Doctor details:  		Method: DELETE  	URL: /doctor/{ID} 
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## Postman Collection
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+https://www.getpostman.com/collections/c0446871334db16d81b6
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Data base script
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+--Doctor table: 
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+DROP TABLE IF EXISTS `doctor`;
+CREATE TABLE `doctor` (
+  `doctor_id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `contact_number` varchar(15) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `specialties` varchar(45) NOT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `zip_code` varchar(20) DEFAULT NULL,
+  `authorization` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`doctor_id`),
+  UNIQUE KEY `doctorId_UNIQUE` (`doctor_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+--Patient table:
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+DROP TABLE IF EXISTS `patient`;
+CREATE TABLE `patient` (
+  `patient_id` int NOT NULL AUTO_INCREMENT,
+  `doctor_id` int DEFAULT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `contact_number` varchar(15) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `zip_code` varchar(20) DEFAULT NULL,
+  `authorization` varchar(500) NOT NULL,
+  PRIMARY KEY (`patient_id`),
+  UNIQUE KEY `patient_id_UNIQUE` (`patient_id`),
+  KEY `patient_fk_doctor_idx` (`doctor_id`),
+  CONSTRAINT `patient_fk_doctor` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains Patients related informations';
 
-## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.

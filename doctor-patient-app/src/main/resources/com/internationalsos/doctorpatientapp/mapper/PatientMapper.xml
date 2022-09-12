@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.internationalsos.doctorpatientapp.mapper.PatientMapper">
+
+	<resultMap id="PatientMap" type="com.internationalsos.doctorpatientapp.model.PatientModel">
+		<id column="patient_id" property="patientId" />
+		<result column="doctor_id" property="doctorId" />
+		<result column="first_name" property="firstName" />
+		<result column="last_name" property="lastName" />
+		<result column="contact_number" property="contactNumber" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="birthdate" property="birthdate" />
+		<result column="address" property="address" />
+		<result column="zip_code" property="zipCode" />
+		<result column="authorization" property="authorization" />
+   </resultMap>	
+	
+	<select id="findPatientById" parameterType="long"
+		resultMap="PatientMap">
+		select * from internationalsos.patient where patient_id = #{patientId}
+	</select>
+	
+	<insert id='savePatientDetails'>
+		INSERT INTO internationalsos.patient (
+				  doctor_id,
+                  first_name, 
+                  last_name, 
+                  contact_number, 
+                  email, 
+                  password, 
+                  birthdate,
+                  address, 
+  				  zip_code, 
+  				  authorization
+			) 
+		VALUES 
+	  		(
+	  			  #{patient.doctorId, jdbcType=NUMERIC},
+			      #{patient.firstName},
+			      #{patient.lastName, jdbcType=VARCHAR},
+			      #{patient.contactNumber},
+			      LOWER(#{patient.email}),
+			      #{patient.password},
+			      #{patient.birthdate, jdbcType=TIMESTAMP},
+			      #{patient.address, jdbcType=VARCHAR},
+			      #{patient.zipCode, jdbcType=VARCHAR},
+			      #{patient.authorization})
+	</insert>
+	
+	<delete id="deletePatientById">
+		delete from internationalsos.patient where patient_id = #{patientId} AND authorization= #{authorization}
+	</delete>
+	
+	<update id="updatePatientDetails"
+		parameterType='com.internationalsos.doctorpatientapp.model.PatientModel'>
+		update internationalsos.patient set
+				  doctor_id=#{patient.doctorId, jdbcType=NUMERIC},
+                  first_name=#{patient.firstName}, 
+                  last_name=#{patient.lastName, jdbcType=VARCHAR}, 
+                  contact_number=#{patient.contactNumber}, 
+                  email=LOWER(#{patient.email}), 
+                  password=#{patient.password}, 
+                  birthdate=#{patient.birthdate, jdbcType=TIMESTAMP},
+                  address=#{patient.address, jdbcType=VARCHAR}, 
+  				  zip_code=#{patient.zipCode, jdbcType=VARCHAR}
+		where patient_id = #{patient.patientId}
+			  AND authorization= #{authorization}
+	</update>
+	
+</mapper>

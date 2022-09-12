@@ -1,0 +1,69 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.internationalsos.doctorpatientapp.mapper.DoctorMapper">
+
+	<resultMap id="DoctorMap" type="com.internationalsos.doctorpatientapp.model.DoctorModel">
+		<id column="doctor_id" property="doctorId" />
+		<result column="first_name" property="firstName" />
+		<result column="last_name" property="lastName" />
+		<result column="contact_number" property="contactNumber" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="specialties" property="specialties" />
+		<result column="address" property="address" />
+		<result column="zip_code" property="zipCode" />
+		<result column="authorization" property="authorization" />
+   </resultMap>	
+	
+	<select id="findDoctorById" parameterType="long"
+		resultMap="DoctorMap">
+		select * from internationalsos.doctor where doctor_id = #{doctorId}
+	</select>
+	
+	<insert id='saveDoctorDetails'>
+		INSERT INTO internationalsos.doctor (
+                  first_name, 
+                  last_name, 
+                  contact_number, 
+                  email, 
+                  password,
+                  specialties, 
+                  address, 
+  				  zip_code, 
+  				  authorization
+			) 
+		VALUES 
+	  		(
+			      #{doctor.firstName},
+			      #{doctor.lastName, jdbcType=VARCHAR},
+			      #{doctor.contactNumber},
+			      LOWER(#{doctor.email}),
+			      #{doctor.password},
+			      #{doctor.specialties},
+			      #{doctor.address, jdbcType=VARCHAR},
+			      #{doctor.zipCode, jdbcType=VARCHAR},
+			      #{doctor.authorization})
+	</insert>
+	
+	<delete id="deleteDoctorById">
+		delete from internationalsos.doctor where doctor_id = #{doctorId} AND authorization= #{authorization}
+	</delete>
+	
+	<update id="updateDoctorDetails"
+		parameterType='com.internationalsos.doctorpatientapp.model.DoctorModel'>
+		update internationalsos.doctor set
+                  first_name=#{doctor.firstName}, 
+                  last_name=#{doctor.lastName, jdbcType=VARCHAR}, 
+                  contact_number=#{doctor.contactNumber}, 
+                  email=LOWER(#{doctor.email}), 
+                  password=#{doctor.password}, 
+                  specialties=#{doctor.specialties},
+                  address=#{doctor.address, jdbcType=VARCHAR}, 
+  				  zip_code=#{doctor.zipCode, jdbcType=VARCHAR}
+		where doctor_id = #{doctor.doctorId}
+			  AND authorization= #{authorization}
+	</update>
+	
+</mapper>
